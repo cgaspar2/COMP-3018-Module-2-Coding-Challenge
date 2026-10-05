@@ -1,11 +1,10 @@
 /**
- * Represents an item in the system
+ * Represents an event in the system
  */
-export interface Item {
-  id: string;
+export interface Event {
+  id: number;
   name: string;
-  description: string;
-  price?: number;
-  createdAt: Date;
-  updatedAt: Date;
+  date: string;
+  capacity: number;
+  registrationCount: number;
 }
