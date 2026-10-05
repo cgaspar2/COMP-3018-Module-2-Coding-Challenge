@@ -92,3 +92,25 @@ export const getEventPopularity = async (id: number) => {
     popularityTier,
   };
 };
+
+/**
+ * Creates a new event
+ * @param eventData - The data for the new event
+ * @returns The created event with generated ID
+ */
+export const createEvent = async (eventData: {
+  name: string;
+  date: string;
+  capacity: number;
+}): Promise<Event> => {
+  const newEvent: Event = {
+    id: Date.now(),
+    name: eventData.name,
+    date: eventData.date,
+    capacity: eventData.capacity,
+    registrationCount: 0,
+  };
+
+  events.push(newEvent);
+  return structuredClone(newEvent);
+};
