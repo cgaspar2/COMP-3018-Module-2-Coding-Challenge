@@ -24,3 +24,12 @@ const events: Event[] = [
     registrationCount: 30,
   },
 ];
+
+/**
+ * Retrieves all events from storage
+ * @returns Array of all events
+ */
+export const getAllEvents = async (): Promise<Event[]> => {
+  // Return a deep clone to avoid direct mutation
+  return structuredClone(events);
+};
