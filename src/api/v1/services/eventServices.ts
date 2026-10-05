@@ -33,3 +33,19 @@ export const getAllEvents = async (): Promise<Event[]> => {
   // Return a deep clone to avoid direct mutation
   return structuredClone(events);
 };
+
+ /**
+  * Retrieves an event by its ID
+  * @param id - The ID of the event to retrieve
+  * @returns The event if found, otherwise null
+  */
+export const getEventById = async (
+  id: number
+): Promise<Event | null> => {
+  const event: Event | undefined = events.find(
+    (event: Event) => event.id === id
+  );
+
+  return event ? structuredClone(event) : null;
+};
+
