@@ -49,3 +49,46 @@ export const getEventById = async (
   return event ? structuredClone(event) : null;
 };
 
+/**
+ * Calculates the popularity of an event
+ * @param id - The ID of the event
+ * @returns Popularity information for the event
+ */
+export const getEventPopularity = async (id: number) => {
+  const event: Event | null = await getEventById(id);
+
+  if (!event) {
+    return null;
+  }
+
+  const spotsRemaining: number =
+    event.capacity - event.registrationCount;
+
+  const popularityScore: number =
+    event.capacity === 0
+      ? 0
+      : Math.round(
+          (event.registrationCount / event.capacity) * 100 * 10
+        ) / 10;
+
+  let popularityTier: string;
+
+  if (popularityScore >= 90) {
+    popularityTier = "Hot";
+  } else if (popularityScore >= 70) {
+    popularityTier = "Popular";
+  } else if (popularityScore >= 50) {
+    popularityTier = "Moderate";
+  } else if (popularityScore >= 25) {
+    popularityTier = "Building";
+  } else {
+    popularityTier = "New";
+  }
+
+  return {
+    ...event,
+    spotsRemaining,
+    popularityScore,
+    popularityTier,
+  };
+};
